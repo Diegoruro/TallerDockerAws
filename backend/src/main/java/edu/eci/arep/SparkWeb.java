@@ -13,7 +13,6 @@ public class SparkWeb {
     public static void main(String... args){
         MongoDbRepository mongoDbRepository = new MongoDbRepository();
         port(getPort());
-        staticFiles.location("/public");
         get("message", (req,res) -> {
             mongoDbRepository.createConnection();
 

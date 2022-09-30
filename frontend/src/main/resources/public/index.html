@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Messages</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<div class="topbar">
+    <h2 class="title">Message storage Service</h2>
+</div>
+<div></div>
+<form>
+    <label for="message">message:</label><br>
+    <input type="text" id="message"><br><br>
+    <div>
+        <input type="button" value="Submit" onclick="loadGetMsg()">
+    </div>
+</form>
+<script >
+
+    function loadGetMsg() {
+        let message = document.getElementById("message").value;
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+        }
+        xhttp.open("POST", "/message");
+        xhttp.setRequestHeader("content-type", "text/plain")
+        xhttp.send(message);
+    }
+</script>
+</body>
+</html>
