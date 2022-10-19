@@ -14,7 +14,8 @@ public class HTTPPostConnection {
         if (roundRobin>2){
             roundRobin=0;
         }
-        String url = "http://localhost:3400"+roundRobin+"/message";
+        String url = "http://18.207.204.37:808"+roundRobin+"/message";
+        roundRobin++;
         System.out.println("conectando a "+ url);
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -23,7 +24,6 @@ public class HTTPPostConnection {
         con.setRequestProperty("Accept", "text/plain");
         con.setDoOutput(true);
         try(OutputStream os = con.getOutputStream()) {
-            System.out.println("conectado");
             byte[] input = message.getBytes("utf-8");
             os.write(input, 0, input.length);
         }

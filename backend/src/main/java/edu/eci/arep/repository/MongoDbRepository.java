@@ -9,12 +9,13 @@ import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.function.Consumer;
 
 
 public class MongoDbRepository {
 
-    private String url = "db";
+    private String url = "ec2-18-207-204-37.compute-1.amazonaws.com";
     private int port = 27017;
     private MongoClient mongoClient = null;
     private MongoDatabase mongoDatabase = null;
@@ -48,12 +49,12 @@ public class MongoDbRepository {
         return documents;
     }
 
-    public ArrayList<String> getAllItems() {
+    public List<String> getAllItems() {
         ArrayList<String> messages = new ArrayList<>();
 
         FindIterable<Document> result = this.mongoCollection.find();
-
         result.forEach((Consumer<? super Document>) document -> messages.add(document.toJson()));
-        return messages;
+        List<String> tail = messages.subList(Math.max(messages.size() - 10, 0), messages.size());
+        return tail;
     }
 }

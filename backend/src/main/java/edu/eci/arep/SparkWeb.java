@@ -4,6 +4,7 @@ package edu.eci.arep;
 import edu.eci.arep.repository.MongoDbRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static spark.Spark.*;
 
@@ -16,7 +17,7 @@ public class SparkWeb {
         get("message", (req,res) -> {
             mongoDbRepository.createConnection();
 
-            ArrayList<String> messages = mongoDbRepository.getAllItems();
+            List<String> messages = mongoDbRepository.getAllItems();
 
             mongoDbRepository.closeConnection();
             return messages;
@@ -28,7 +29,7 @@ public class SparkWeb {
                 mongoDbRepository.addItem(req.body());
             }
 
-            ArrayList<String> messages = mongoDbRepository.getAllItems();
+            List<String> messages = mongoDbRepository.getAllItems();
 
             mongoDbRepository.closeConnection();
 

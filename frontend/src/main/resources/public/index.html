@@ -5,6 +5,7 @@
     <title>Messages</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="indexStyle.css">
 </head>
 
 <body>
@@ -18,18 +19,41 @@
     <div>
         <input type="button" value="Submit" onclick="loadGetMsg()">
     </div>
+
 </form>
+<table id="table" style="display: none">
+    <tr class="table-header">
+        <th>Message</th>
+    </tr>
+</table>
 <script >
 
     function loadGetMsg() {
         let message = document.getElementById("message").value;
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function () {
+                buildTable(JSON.parse(this.responseText));
         }
         xhttp.open("POST", "/message");
         xhttp.setRequestHeader("content-type", "text/plain")
         xhttp.send(message);
     }
+    function buildTable(json) {
+            cleanData([...document.getElementsByClassName("row")]);
+            let table = document.getElementById("table");
+            table.style.display = "";
+            for (key in json) {
+                let row = `<tr class="row">
+                                                                                    <td>${json[key]["text"]}</td>
+                                                                        </tr>`
+                table.innerHTML += row;
+            }
+    }
+        function cleanData(data){
+            data.forEach(element => {
+                element.remove();
+            });
+        }
 </script>
 </body>
 </html>

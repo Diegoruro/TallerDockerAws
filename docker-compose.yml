@@ -1,0 +1,48 @@
+version: '3'
+  
+
+services:
+      
+  log:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080-8082:6000"
+    networks:
+      - netapi
+      - netdb   
+
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "34000:6000"
+    depends_on:
+      - log 
+    networks:
+      - netapi 
+    links:
+      - log 
+
+  db:
+    image: mongo:3.6.1
+    volumes:
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
+    ports:
+      - 27017:27017
+    command: mongod
+    networks:
+      - netdb   
+
+volumes:
+  mongodb:
+  mongodb_config:
+
+networks:
+  netapi:
+    driver: bridge
+  netdb:
+    driver: bridge

@@ -14,8 +14,6 @@ public class SparkWebApp {
         staticFiles.location("/public");
         post("message", (req,res) -> {
             String response=null;
-            System.out.println("posteando");
-            System.out.println(req.body());
             try {
                 response = HTTPPostConnection.post(req.body());
             }catch (IOException ex){
